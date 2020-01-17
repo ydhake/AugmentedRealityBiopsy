@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class HistogramUI : MonoBehaviour
 {
+    public HistogramAlphaSlider alphaSliderPrefab;
+    
     // Start is called before the first frame update
     void Start()
     {
