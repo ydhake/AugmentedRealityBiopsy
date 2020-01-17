@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: HistogramMaterial
-  m_Shader: {fileID: 4800000, guid: 9117c7b46d847fc41adc9d9bb2cfa4c4, type: 3}
+  m_Name: ColorBarMaterialVolumeObject
+  m_Shader: {fileID: 4800000, guid: 2b9f004f75e79b848808a5354ffd2c2e, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0

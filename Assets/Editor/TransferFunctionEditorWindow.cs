@@ -26,8 +26,8 @@ public class TransferFunctionEditorWindow : EditorWindow
 
     private void OnEnable()
     {
-        histogramMaterial = Program.instance.transferFunctionManager.histogramMaterial;
-        colorBarMaterial = Program.instance.transferFunctionManager.colorBarMaterial;
+        histogramMaterial = Program.instance.transferFunctionManager.histogramMaterialVolumeObject;
+        colorBarMaterial = Program.instance.transferFunctionManager.colorBarMaterialVolumeObject;
     }
 
     private void OnGUI()

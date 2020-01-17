@@ -4,50 +4,82 @@ using UnityEngine;
 
 public class TransferFunctionManager : MonoBehaviour
 {
-    public TransferFunction transferFunction;
+    public TransferFunction transferFunctionVolumeObject;
+    public TransferFunction transferFunctionTumor;
 
-    public Material histogramMaterial;
-    public Material colorBarMaterial;
+    public Material histogramMaterialVolumeObject;
+    public Material histogramMaterialTumor;
+    public Material colorBarMaterialVolumeObject;
+    public Material colorBarMaterialTumor;
 
     // private int movingColPointIndex = -1;
     // private int movingAlphaPointIndex = -1;
     // private int selectedColPointIndex = -1;
 
-    public TransferFunction CreateTransferFunction()
+    public TransferFunction CreateTransferFunctionVolumeObject()
     {
-        transferFunction = new TransferFunction();
+        transferFunctionVolumeObject = new TransferFunction();
         
-        transferFunction.texture = new Texture2D(512, 2, TextureFormat.RGBAFloat, false);
-        transferFunction.tfCols = new Color[512 * 2];
+        transferFunctionVolumeObject.texture = new Texture2D(512, 2, TextureFormat.RGBAFloat, false);
+        transferFunctionVolumeObject.tfCols = new Color[512 * 2];
         
-        transferFunction.AddControlPointColor(0.0f, new Color(0.11f, 0.14f, 0.13f, 1.0f));
-        transferFunction.AddControlPointColor(0.2415f, new Color(0.469f, 0.354f, 0.223f, 1.0f));
-        transferFunction.AddControlPointColor(0.3253f, new Color(1.0f, 1.0f, 1.0f, 1.0f));
+        transferFunctionVolumeObject.AddControlPointColor(0.0f, new Color(0.11f, 0.14f, 0.13f, 1.0f));
+        transferFunctionVolumeObject.AddControlPointColor(0.2415f, new Color(0.469f, 0.354f, 0.223f, 1.0f));
+        transferFunctionVolumeObject.AddControlPointColor(0.3253f, new Color(1.0f, 1.0f, 1.0f, 1.0f));
 
-        transferFunction.AddControlPointAlpha(0.0f, 0.0f);
-        transferFunction.AddControlPointAlpha(0.1787f, 0.0f);
-        transferFunction.AddControlPointAlpha(0.2f, 0.024f);
-        transferFunction.AddControlPointAlpha(0.28f, 0.03f);
-        transferFunction.AddControlPointAlpha(0.4f, 0.546f);
-        transferFunction.AddControlPointAlpha(0.547f, 0.5266f);
+        transferFunctionVolumeObject.AddControlPointAlpha(0.0f, 0.0f);
+        transferFunctionVolumeObject.AddControlPointAlpha(0.1787f, 0.0f);
+        transferFunctionVolumeObject.AddControlPointAlpha(0.2f, 0.024f);
+        transferFunctionVolumeObject.AddControlPointAlpha(0.28f, 0.03f);
+        transferFunctionVolumeObject.AddControlPointAlpha(0.4f, 0.546f);
+        transferFunctionVolumeObject.AddControlPointAlpha(0.547f, 0.5266f);
 
-        transferFunction.GenerateTexture();
-        return transferFunction;
+        transferFunctionVolumeObject.GenerateTexture();
+        return transferFunctionVolumeObject;
     }
+
+    public TransferFunction CreateTransferFunctionTumor()
+    {
+        transferFunctionTumor = new TransferFunction();
+        
+        transferFunctionTumor.texture = new Texture2D(512, 2, TextureFormat.RGBAFloat, false);
+        transferFunctionTumor.tfCols = new Color[512 * 2];
+        
+        transferFunctionTumor.AddControlPointColor(0.0f, new Color(0.11f, 0.14f, 0.13f, 1.0f));
+        transferFunctionTumor.AddControlPointColor(0.2415f, new Color(0.469f, 0.354f, 0.223f, 1.0f));
+        transferFunctionTumor.AddControlPointColor(0.3253f, new Color(1.0f, 1.0f, 1.0f, 1.0f));
+
+        transferFunctionTumor.AddControlPointAlpha(0.0f, 0.0f);
+        transferFunctionTumor.AddControlPointAlpha(0.1787f, 0.0f);
+        transferFunctionTumor.AddControlPointAlpha(0.2f, 0.024f);
+        transferFunctionTumor.AddControlPointAlpha(0.28f, 0.03f);
+        transferFunctionTumor.AddControlPointAlpha(0.4f, 0.546f);
+        transferFunctionTumor.AddControlPointAlpha(0.547f, 0.5266f);
+
+        transferFunctionTumor.GenerateTexture();
+        return transferFunctionTumor;
+    }
+
 
     // Update is called once per frame
     void Update()
     {
         Color oldColour = GUI.color;
 
-        transferFunction.GenerateTexture();
+        transferFunctionVolumeObject.GenerateTexture();
+        transferFunctionTumor.GenerateTexture();
 
-        histogramMaterial.SetTexture("_TFTex", transferFunction.GetTexture());
-        histogramMaterial.SetTexture("_HistTex", transferFunction.histogramTexture);
+        histogramMaterialVolumeObject.SetTexture("_TFTex", transferFunctionVolumeObject.GetTexture());
+        histogramMaterialVolumeObject.SetTexture("_HistTex", transferFunctionVolumeObject.histogramTexture);
 
-        Texture2D tfTexture = transferFunction.GetTexture();
+        histogramMaterialTumor.SetTexture("_TFTex", transferFunctionTumor.GetTexture());
+        histogramMaterialTumor.SetTexture("_HistTex", transferFunctionTumor.histogramTexture);
 
-        colorBarMaterial.SetTexture("_TFTex", transferFunction.GetTexture());
+        Texture2D tfTextureVolumeObject = transferFunctionVolumeObject.GetTexture();
+        Texture2D tfTextureTumor = transferFunctionTumor.GetTexture();
+
+        colorBarMaterialVolumeObject.SetTexture("_TFTex", transferFunctionVolumeObject.GetTexture());
+        colorBarMaterialTumor.SetTexture("_TFTex", transferFunctionTumor.GetTexture());
 
         // // Colour control points
         // for (int iCol = 0; iCol < transferFunction.colourControlPoints.Count; iCol++)
@@ -112,8 +144,13 @@ public class TransferFunctionManager : MonoBehaviour
         // }
 
         // TEST!!! TODO
-        Program.instance.volumeRenderedObjectComplete.GetComponent<MeshRenderer>().sharedMaterial.SetTexture("_TFTex", tfTexture);
+        Program.instance.volumeRenderedObjectComplete.GetComponent<MeshRenderer>().sharedMaterial.SetTexture("_TFTex", tfTextureVolumeObject);
         Program.instance.volumeRenderedObjectComplete.GetComponent<MeshRenderer>().sharedMaterial.DisableKeyword("TF2D_ON");
+
+        
+        Program.instance.volumeRenderedObjectTumor.GetComponent<MeshRenderer>().sharedMaterial.SetTexture("_TFTex", tfTextureTumor);
+        Program.instance.volumeRenderedObjectTumor.GetComponent<MeshRenderer>().sharedMaterial.DisableKeyword("TF2D_ON");
+
 
         GUI.color = oldColour;
     }

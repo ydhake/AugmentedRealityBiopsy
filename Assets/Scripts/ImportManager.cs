@@ -20,13 +20,14 @@ public class ImportManager : MonoBehaviour
     public int dimZ; // TODO: set good default value
     public DataContentFormat contentFormat;
     public string filePathComplete;
-    public string filePathSegmentation;
+    public string filePathTumor;
     public int skipBytes;
 
     public GameObject volumeObjectPrefab;
+    public GameObject tumorPrefab;
 
     public VolumeDataset datasetComplete;
-    public VolumeDataset datasetSegmentation;
+    public VolumeDataset datasetTumor;
 
     void Start()
     {
@@ -36,12 +37,11 @@ public class ImportManager : MonoBehaviour
     public void Import()
     {
         datasetComplete = CreateDataset(filePathComplete);
-        //datasetSegmentation = CreateDataset(filePathSegmentation);
+        datasetTumor = CreateDataset(filePathTumor);
 
         Program.instance.volumeRenderedObjectComplete = CreateVolumeRenderedObject(datasetComplete);
-        //Program.instance.volumeRenderedObjectTumor = CreateVolumeRenderedObject(datasetSegmentation);
+        Program.instance.volumeRenderedObjectTumor = CreateTumorObject(datasetTumor);
     }
-
 
     public VolumeDataset CreateDataset(string filePath)
     {
@@ -152,7 +152,80 @@ public class ImportManager : MonoBehaviour
         const int noiseDimY = 512;
         Texture2D noiseTexture = NoiseTextureGenerator.GenerateNoiseTexture(noiseDimX, noiseDimY);
 
-        TransferFunction tf = Program.instance.transferFunctionManager.CreateTransferFunction();
+        TransferFunction tf = Program.instance.transferFunctionManager.CreateTransferFunctionVolumeObject();
+        
+        Texture2D tfTexture = tf.GetTexture();
+        volObj.transferFunction = tf;
+
+        tf.histogramTexture = HistogramTextureGenerator.GenerateHistogramTexture(dataset);
+
+        TransferFunction2D tf2D = new TransferFunction2D();
+        tf2D.AddBox(0.05f, 0.1f, 0.8f, 0.7f, Color.white, 0.4f);
+        volObj.transferFunction2D = tf2D;
+
+        meshRenderer.sharedMaterial.SetTexture("_DataTex", tex);
+        meshRenderer.sharedMaterial.SetTexture("_NoiseTex", noiseTexture);
+        meshRenderer.sharedMaterial.SetTexture("_TFTex", tfTexture);
+
+        meshRenderer.sharedMaterial.EnableKeyword("MODE_DVR");
+        meshRenderer.sharedMaterial.DisableKeyword("MODE_MIP");
+        meshRenderer.sharedMaterial.DisableKeyword("MODE_SURF");
+
+        return volObj;
+    }
+
+    public VolumeRenderedObject CreateTumorObject(VolumeDataset dataset)
+    {
+        GameObject go = GameObject.Instantiate(tumorPrefab) as GameObject;
+        go.transform.position = new Vector3(0f, 0f, 0.5f);
+        
+        go.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+        go.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
+
+        VolumeRenderedObject volObj = go.GetComponent<VolumeRenderedObject>();
+        MeshRenderer meshRenderer = go.GetComponent<MeshRenderer>();
+
+        volObj.dataset = dataset;
+
+        int dimX = dataset.dimX;
+        int dimY = dataset.dimY;
+        int dimZ = dataset.dimZ;
+
+        int maxRange = dataset.maxDataValue - dataset.minDataValue;
+
+        Color[] cols = new Color[dataset.data.Length];
+        for (int x = 0; x < dataset.dimX; x++)
+        {
+            for (int y = 0; y < dataset.dimY; y++)
+            {
+                for (int z = 0; z < dataset.dimZ; z++)
+                {
+                    int iData = x + y * dimX + z * (dimX * dimY);
+
+                    int x1 = dataset.data[Mathf.Min(x + 1, dimX - 1) + y * dataset.dimX + z * (dataset.dimX * dataset.dimY)];
+                    int x2 = dataset.data[Mathf.Max(x - 1, 0) + y * dataset.dimX + z * (dataset.dimX * dataset.dimY)];
+                    int y1 = dataset.data[x + Mathf.Min(y + 1, dimY - 1) * dataset.dimX + z * (dataset.dimX * dataset.dimY)];
+                    int y2 = dataset.data[x + Mathf.Max(y - 1, 0) * dataset.dimX + z * (dataset.dimX * dataset.dimY)];
+                    int z1 = dataset.data[x + y * dataset.dimX + Mathf.Min(z + 1, dimZ - 1) * (dataset.dimX * dataset.dimY)];
+                    int z2 = dataset.data[x + y * dataset.dimX + Mathf.Max(z - 1, 0) * (dataset.dimX * dataset.dimY)];
+
+                    Vector3 grad = new Vector3((x2 - x1) / (float)maxRange, (y2 - y1) / (float)maxRange, (z2 - z1) / (float)maxRange);
+
+                    cols[iData] = new Color(grad.x, grad.y, grad.z, (float)dataset.data[iData] / (float)dataset.maxDataValue);
+                }
+            }
+        }
+
+        dataset.texture.SetPixels(cols);
+        dataset.texture.Apply();
+
+        Texture3D tex = dataset.texture;
+
+        const int noiseDimX = 512;
+        const int noiseDimY = 512;
+        Texture2D noiseTexture = NoiseTextureGenerator.GenerateNoiseTexture(noiseDimX, noiseDimY);
+
+        TransferFunction tf = Program.instance.transferFunctionManager.CreateTransferFunctionTumor();
         
         Texture2D tfTexture = tf.GetTexture();
         volObj.transferFunction = tf;
