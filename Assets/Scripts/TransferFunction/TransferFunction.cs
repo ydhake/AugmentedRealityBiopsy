@@ -24,23 +24,21 @@ public class TransferFunction
 
     public void AddControlPointColor(float dataValue, Color color)
     {
-        colourControlPoints.Add(
-            CreateControlPointColor(
-                dataValue,
-                color
-            )
+        ControlPointColor newControlPoint = CreateControlPointColor(
+            dataValue, color
         );
+        
+        colourControlPoints.Add(newControlPoint);
+        
     }
 
     public void AddControlPointAlpha(float dataValue, float alphaValue)
     {
-        
-        alphaControlPoints.Add(
-            CreateControlPointAlpha(
-                dataValue, 
-                alphaValue
-            )
+        ControlPointAlpha newControlPoint =  CreateControlPointAlpha(
+            dataValue, alphaValue
         );
+        alphaControlPoints.Add(newControlPoint);
+        UI.instance.transferFunctionUI.histogramUI.CreateAlphaSlider(newControlPoint);
     }
 
     public ControlPointAlpha CreateControlPointAlpha(float dataValue, float alphaValue)
