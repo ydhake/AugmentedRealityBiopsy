@@ -6,18 +6,12 @@ public class TransferFunctionManager : MonoBehaviour
 {
     public TransferFunction transferFunction;
 
-    public Material guiMaterial;
-    public Material paletteMaterial;
+    public Material histogramMaterial;
+    public Material colorBarMaterial;
 
     // private int movingColPointIndex = -1;
     // private int movingAlphaPointIndex = -1;
     // private int selectedColPointIndex = -1;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     public TransferFunction CreateTransferFunction()
     {
@@ -48,12 +42,12 @@ public class TransferFunctionManager : MonoBehaviour
 
         transferFunction.GenerateTexture();
 
-        guiMaterial.SetTexture("_TFTex", transferFunction.GetTexture());
-        guiMaterial.SetTexture("_HistTex", transferFunction.histogramTexture);
+        histogramMaterial.SetTexture("_TFTex", transferFunction.GetTexture());
+        histogramMaterial.SetTexture("_HistTex", transferFunction.histogramTexture);
 
         Texture2D tfTexture = transferFunction.GetTexture();
 
-        paletteMaterial.SetTexture("_TFTex", transferFunction.GetTexture());
+        colorBarMaterial.SetTexture("_TFTex", transferFunction.GetTexture());
 
         // // Colour control points
         // for (int iCol = 0; iCol < transferFunction.colourControlPoints.Count; iCol++)

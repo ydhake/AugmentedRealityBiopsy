@@ -21,13 +21,13 @@ public class TransferFunctionEditorWindow : EditorWindow
         wnd.Show();
     }
 
-    private Material tfGUIMat = null;
-    private Material tfPaletteGUIMat = null;
+    private Material histogramMaterial = null;
+    private Material colorBarMaterial = null;
 
     private void OnEnable()
     {
-        tfGUIMat = Program.instance.transferFunctionManager.guiMaterial;
-        tfPaletteGUIMat = Program.instance.transferFunctionManager.paletteMaterial;
+        histogramMaterial = Program.instance.transferFunctionManager.histogramMaterial;
+        colorBarMaterial = Program.instance.transferFunctionManager.colorBarMaterial;
     }
 
     private void OnGUI()
@@ -43,14 +43,14 @@ public class TransferFunctionEditorWindow : EditorWindow
 
         tf.GenerateTexture();
 
-        tfGUIMat.SetTexture("_TFTex", tf.GetTexture());
-        tfGUIMat.SetTexture("_HistTex", tf.histogramTexture);
-        Graphics.DrawTexture(bgRect, tf.GetTexture(), tfGUIMat);
+        histogramMaterial.SetTexture("_TFTex", tf.GetTexture());
+        histogramMaterial.SetTexture("_HistTex", tf.histogramTexture);
+        Graphics.DrawTexture(bgRect, tf.GetTexture(), histogramMaterial);
 
         Texture2D tfTexture = tf.GetTexture();
 
-        tfPaletteGUIMat.SetTexture("_TFTex", tf.GetTexture());
-        Graphics.DrawTexture(new Rect(bgRect.x, bgRect.y + bgRect.height + 20, bgRect.width, 20.0f), tfTexture, tfPaletteGUIMat);
+        colorBarMaterial.SetTexture("_TFTex", tf.GetTexture());
+        Graphics.DrawTexture(new Rect(bgRect.x, bgRect.y + bgRect.height + 20, bgRect.width, 20.0f), tfTexture, colorBarMaterial);
 
         // Colour control points
         for (int iCol = 0; iCol < tf.colourControlPoints.Count; iCol++)

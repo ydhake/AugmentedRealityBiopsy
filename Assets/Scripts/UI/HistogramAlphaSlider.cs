@@ -13,7 +13,7 @@ public class HistogramAlphaSlider : PinchSlider
         if (controlPointAlpha)
         {
             transform.localPosition = new Vector3(
-                -0.5f+controlPointAlpha.alphaValue,
+                -0.5f+controlPointAlpha.dataValue,
                 0f,
                 0f
             );
