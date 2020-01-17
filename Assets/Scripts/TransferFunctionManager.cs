@@ -112,8 +112,8 @@ public class TransferFunctionManager : MonoBehaviour
         // }
 
         // TEST!!! TODO
-        Program.instance.volumeRenderedObject.GetComponent<MeshRenderer>().sharedMaterial.SetTexture("_TFTex", tfTexture);
-        Program.instance.volumeRenderedObject.GetComponent<MeshRenderer>().sharedMaterial.DisableKeyword("TF2D_ON");
+        Program.instance.volumeRenderedObjectComplete.GetComponent<MeshRenderer>().sharedMaterial.SetTexture("_TFTex", tfTexture);
+        Program.instance.volumeRenderedObjectComplete.GetComponent<MeshRenderer>().sharedMaterial.DisableKeyword("TF2D_ON");
 
         GUI.color = oldColour;
     }

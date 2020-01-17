@@ -19,14 +19,14 @@ public class ImportManager : MonoBehaviour
     public int dimY; // TODO: set good default value
     public int dimZ; // TODO: set good default value
     public DataContentFormat contentFormat;
-    public string filePath;
+    public string filePathComplete;
+    public string filePathSegmentation;
     public int skipBytes;
-
 
     public GameObject volumeObjectPrefab;
 
-    
-    public VolumeDataset dataset;
+    public VolumeDataset datasetComplete;
+    public VolumeDataset datasetSegmentation;
 
     void Start()
     {
@@ -35,12 +35,15 @@ public class ImportManager : MonoBehaviour
 
     public void Import()
     {
-        dataset = CreateDataset();
-        Program.instance.volumeRenderedObject = CreateVolumeRenderedObject(dataset);
+        datasetComplete = CreateDataset(filePathComplete);
+        //datasetSegmentation = CreateDataset(filePathSegmentation);
+
+        Program.instance.volumeRenderedObjectComplete = CreateVolumeRenderedObject(datasetComplete);
+        //Program.instance.volumeRenderedObjectTumor = CreateVolumeRenderedObject(datasetSegmentation);
     }
 
 
-    public VolumeDataset CreateDataset()
+    public VolumeDataset CreateDataset(string filePath)
     {
         VolumeDataset dataset = new VolumeDataset();
 
@@ -104,7 +107,7 @@ public class ImportManager : MonoBehaviour
         go.transform.position = new Vector3(0f, 0f, 0.5f);
         
         go.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
-        go.transform.localScale = new Vector3(0.3f, 0.3f, 0.2f);
+        go.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
 
         VolumeRenderedObject volObj = go.GetComponent<VolumeRenderedObject>();
         MeshRenderer meshRenderer = go.GetComponent<MeshRenderer>();

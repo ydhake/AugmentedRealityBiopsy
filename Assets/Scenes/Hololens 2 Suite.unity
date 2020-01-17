@@ -10378,7 +10378,8 @@ MonoBehaviour:
   importManager: {fileID: 1789741512}
   biopsyManager: {fileID: 2107367067}
   transferFunctionManager: {fileID: 1344301540}
-  volumeRenderedObject: {fileID: 0}
+  volumeRenderedObjectComplete: {fileID: 0}
+  volumeRenderedObjectTumor: {fileID: 0}
 --- !u!4 &695167771
 Transform:
   m_ObjectHideFlags: 0
@@ -23491,15 +23492,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89abd63bf2183c440a6d9636e1259a8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dimX: 512
-  dimY: 512
-  dimZ: 71
+  dimX: 256
+  dimY: 256
+  dimZ: 121
   contentFormat: 2
-  filePath: DataFiles/brain_mri.raw
-  skipBytes: 12
+  filePathComplete: DataFiles/brain_nose.raw
+  filePathSegmentation: DataFiles/tumor_label.raw
+  skipBytes: 6
   volumeObjectPrefab: {fileID: 1758459268553486, guid: 06d1ae9362ecddb44844bf342a6fc7f3,
     type: 3}
-  dataset:
+  datasetComplete:
+    data: 
+    texture: {fileID: 0}
+    minDataValue: 0
+    maxDataValue: 0
+    dimX: 0
+    dimY: 0
+    dimZ: 0
+  datasetSegmentation:
     data: 
     texture: {fileID: 0}
     minDataValue: 0
