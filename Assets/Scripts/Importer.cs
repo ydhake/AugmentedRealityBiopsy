@@ -18,7 +18,6 @@ public class Importer : MonoBehaviour
     public int dimX; // TODO: set good default value
     public int dimY; // TODO: set good default value
     public int dimZ; // TODO: set good default value
-    public int bytesToSkip = 0;
     public DataContentFormat contentFormat;
     public string filePath;
     public int skipBytes;
@@ -102,9 +101,14 @@ public class Importer : MonoBehaviour
 
     public VolumeRenderedObject CreateVolumeRenderedObject(VolumeDataset dataset)
     {
-        GameObject obj = GameObject.Instantiate(volumeObjectPrefab) as GameObject;
-        VolumeRenderedObject volObj = obj.GetComponent<VolumeRenderedObject>();
-        MeshRenderer meshRenderer = obj.GetComponent<MeshRenderer>();
+        GameObject go = GameObject.Instantiate(volumeObjectPrefab) as GameObject;
+        go.transform.position = new Vector3(0f, 0f, 0.5f);
+        
+        go.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+        go.transform.localScale = new Vector3(0.3f, 0.3f, 0.2f);
+
+        VolumeRenderedObject volObj = go.GetComponent<VolumeRenderedObject>();
+        MeshRenderer meshRenderer = go.GetComponent<MeshRenderer>();
 
         volObj.dataset = dataset;
 
