@@ -2016,13 +2016,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b0b3fdf3bb5ac6479475b6ec1a9d06d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  manager: {fileID: 0}
+  manager: {fileID: 2107367067}
   lineRenderer: {fileID: 120764913}
   biopsyPoint: {fileID: 1557189995}
   entryPoint: {fileID: 1005893039}
-  matRegular: {fileID: 0}
-  matCorrent: {fileID: 0}
-  matFalse: {fileID: 0}
+  matRegular: {fileID: 2100000, guid: 0a880cdc24ea83b44bef6302c6166dab, type: 2}
+  matCorrent: {fileID: 2100000, guid: 4406094692f280d4fbc3f4fa69b13cb1, type: 2}
+  matFalse: {fileID: 2100000, guid: 847d4db842a267749bcd2cdbd4b6bc38, type: 2}
 --- !u!1001 &138227285
 PrefabInstance:
   m_ObjectHideFlags: 0
