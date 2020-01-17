@@ -1,0 +1,13 @@
+ObjectType = Image
+NDims = 3
+BinaryData = True
+BinaryDataByteOrderMSB = False
+CompressedData = False
+TransformMatrix = 1 0 0 0 1 0 0 0 1
+Offset = -123.86699676513672 -172.61700439453128 -82.875
+CenterOfRotation = 0 0 0
+AnatomicalOrientation = RAI
+ElementSpacing = 1.0156000000000001 1.0156000000000001 1.5
+DimSize = 256 256 122
+ElementType = MET_SHORT
+ElementDataFile = brain_nose.raw
