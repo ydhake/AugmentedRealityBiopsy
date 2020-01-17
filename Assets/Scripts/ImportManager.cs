@@ -106,7 +106,7 @@ public class ImportManager : MonoBehaviour
         GameObject go = GameObject.Instantiate(volumeObjectPrefab) as GameObject;
         go.transform.position = new Vector3(0f, 0f, 0.5f);
         
-        go.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+        go.transform.rotation = Quaternion.Euler(0f, 180f, 180f);
         go.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
 
         VolumeRenderedObject volObj = go.GetComponent<VolumeRenderedObject>();
@@ -179,7 +179,7 @@ public class ImportManager : MonoBehaviour
         GameObject go = GameObject.Instantiate(tumorPrefab) as GameObject;
         go.transform.position = new Vector3(0f, 0f, 0.5f);
         
-        go.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+        go.transform.rotation = Quaternion.Euler(0f, 180f, 180f);
         go.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
 
         VolumeRenderedObject volObj = go.GetComponent<VolumeRenderedObject>();

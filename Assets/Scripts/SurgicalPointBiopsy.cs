@@ -5,4 +5,8 @@ using UnityEngine;
 public class SurgicalPointBiopsy : SurgicalPoint
 {
    
+    public void Start()
+    {
+        transform.position = initialVector;
+    }
 }
