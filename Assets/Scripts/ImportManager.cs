@@ -13,7 +13,7 @@ public enum DataContentFormat
     Uint32
 }
 
-public class Importer : MonoBehaviour
+public class ImportManager : MonoBehaviour
 {
     public int dimX; // TODO: set good default value
     public int dimY; // TODO: set good default value
@@ -27,7 +27,6 @@ public class Importer : MonoBehaviour
 
     
     public VolumeDataset dataset;
-    public VolumeRenderedObject volumeRenderedObject;
 
     void Start()
     {
@@ -37,7 +36,7 @@ public class Importer : MonoBehaviour
     public void Import()
     {
         dataset = CreateDataset();
-        volumeRenderedObject = CreateVolumeRenderedObject(dataset);
+        Program.instance.volumeRenderedObject = CreateVolumeRenderedObject(dataset);
     }
 
 
