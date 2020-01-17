@@ -75,7 +75,7 @@ public class TransferFunctionEditorWindow : EditorWindow
         // Alpha control points
         for (int iAlpha = 0; iAlpha < tf.alphaControlPoints.Count; iAlpha++)
         {
-            TFAlphaControlPoint alphaPoint = tf.alphaControlPoints[iAlpha];
+            ControlPointAlpha alphaPoint = tf.alphaControlPoints[iAlpha];
             Rect ctrlBox = new Rect(bgRect.x + bgRect.width * alphaPoint.dataValue, bgRect.y + (1.0f - alphaPoint.alphaValue) * bgRect.height, 10, 10);
             GUI.color = oldColour;
             GUI.skin.box.fontSize = 6;
@@ -101,7 +101,11 @@ public class TransferFunctionEditorWindow : EditorWindow
         if(Event.current.type == EventType.MouseDown && Event.current.button == 1)
         {
             if (bgRect.Contains(new Vector2(Event.current.mousePosition.x, Event.current.mousePosition.y)))
-                tf.alphaControlPoints.Add(new TFAlphaControlPoint(Mathf.Clamp((Event.current.mousePosition.x - bgRect.x) / bgRect.width, 0.0f, 1.0f), Mathf.Clamp(1.0f - (Event.current.mousePosition.y - bgRect.y) / bgRect.height, 0.0f, 1.0f)));
+                tf.alphaControlPoints.Add(
+                    tf.CreateControlPointAlpha(
+                        Mathf.Clamp((Event.current.mousePosition.x - bgRect.x) / bgRect.width, 0.0f, 1.0f), 
+                        Mathf.Clamp(1.0f - (Event.current.mousePosition.y - bgRect.y) / bgRect.height, 0.0f, 1.0f)
+                    ));
             else
                 tf.colourControlPoints.Add(new TFColourControlPoint(Mathf.Clamp((Event.current.mousePosition.x - bgRect.x) / bgRect.width, 0.0f, 1.0f), Random.ColorHSV()));
             selectedColPointIndex = -1;

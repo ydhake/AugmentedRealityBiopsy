@@ -11,15 +11,3 @@ public struct TFColourControlPoint
         this.colourValue = colourValue;
     }
 }
-
-public struct TFAlphaControlPoint
-{
-    public float dataValue;
-    public float alphaValue;
-
-    public TFAlphaControlPoint(float dataValue, float alphaValue)
-    {
-        this.dataValue = dataValue;
-        this.alphaValue = alphaValue;
-    }
-}

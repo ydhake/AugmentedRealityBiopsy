@@ -6,7 +6,7 @@ using System;
 public class TransferFunction
 {
     public List<TFColourControlPoint> colourControlPoints = new List<TFColourControlPoint>();
-    public List<TFAlphaControlPoint> alphaControlPoints = new List<TFAlphaControlPoint>();
+    public List<ControlPointAlpha> alphaControlPoints = new List<ControlPointAlpha>();
 
     public Texture2D histogramTexture = null;
 
@@ -27,9 +27,23 @@ public class TransferFunction
         colourControlPoints.Add(ctrlPoint);
     }
 
-    public void AddControlPoint(TFAlphaControlPoint ctrlPoint)
+    public void AddControlPointAlpha(float dataValue, float alphaValue)
     {
-        alphaControlPoints.Add(ctrlPoint);
+        
+        alphaControlPoints.Add(
+            CreateControlPointAlpha(
+                dataValue, 
+                alphaValue
+            )
+        );
+    }
+
+    public ControlPointAlpha CreateControlPointAlpha(float dataValue, float alphaValue)
+    {
+        ControlPointAlpha newControlPoint = ScriptableObject.CreateInstance("ControlPointAlpha") as ControlPointAlpha;
+        newControlPoint.dataValue = dataValue;
+        newControlPoint.alphaValue = alphaValue;
+        return newControlPoint;
     }
 
     public Texture2D GetTexture()
@@ -43,7 +57,7 @@ public class TransferFunction
     public void GenerateTexture()
     {
         List<TFColourControlPoint> cols = new List<TFColourControlPoint>(colourControlPoints);
-        List<TFAlphaControlPoint> alphas = new List<TFAlphaControlPoint>(alphaControlPoints);
+        List<ControlPointAlpha> alphas = new List<ControlPointAlpha>(alphaControlPoints);
 
         // Sort lists of control points
         cols.Sort((a, b) => (a.dataValue.CompareTo(b.dataValue)));
@@ -57,9 +71,9 @@ public class TransferFunction
 
         // Add alpha points at beginning and end
         if (alphas.Count == 0 || alphas[alphas.Count - 1].dataValue < 1.0f)
-            alphas.Add(new TFAlphaControlPoint(1.0f, 1.0f));
+            alphas.Add(CreateControlPointAlpha(1.0f, 1.0f));
         if (alphas[0].dataValue > 0.0f)
-            alphas.Insert(0, new TFAlphaControlPoint(0.0f, 0.0f));
+            alphas.Insert(0, CreateControlPointAlpha(0.0f, 0.0f));
 
         int numColours = cols.Count;
         int numAlphas = alphas.Count;
@@ -76,8 +90,8 @@ public class TransferFunction
 
             TFColourControlPoint leftCol = cols[iCurrColour];
             TFColourControlPoint rightCol = cols[iCurrColour + 1];
-            TFAlphaControlPoint leftAlpha = alphas[iCurrAlpha];
-            TFAlphaControlPoint rightAlpha = alphas[iCurrAlpha + 1];
+            ControlPointAlpha leftAlpha = alphas[iCurrAlpha];
+            ControlPointAlpha rightAlpha = alphas[iCurrAlpha + 1];
 
             float tCol = (Mathf.Clamp(t, leftCol.dataValue, rightCol.dataValue) - leftCol.dataValue) / (rightCol.dataValue - leftCol.dataValue);
             float tAlpha = (Mathf.Clamp(t, leftAlpha.dataValue, rightAlpha.dataValue) - leftAlpha.dataValue) / (rightAlpha.dataValue - leftAlpha.dataValue);
