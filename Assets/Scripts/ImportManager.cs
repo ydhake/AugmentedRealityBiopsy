@@ -149,21 +149,8 @@ public class ImportManager : MonoBehaviour
         const int noiseDimY = 512;
         Texture2D noiseTexture = NoiseTextureGenerator.GenerateNoiseTexture(noiseDimX, noiseDimY);
 
-        TransferFunction tf = new TransferFunction();
-        Program.instance.transferFunctionManager.transferFunction = tf;
+        TransferFunction tf = Program.instance.transferFunctionManager.CreateTransferFunction();
         
-        tf.AddControlPointColor(0.0f, new Color(0.11f, 0.14f, 0.13f, 1.0f));
-        tf.AddControlPointColor(0.2415f, new Color(0.469f, 0.354f, 0.223f, 1.0f));
-        tf.AddControlPointColor(0.3253f, new Color(1.0f, 1.0f, 1.0f, 1.0f));
-
-        tf.AddControlPointAlpha(0.0f, 0.0f);
-        tf.AddControlPointAlpha(0.1787f, 0.0f);
-        tf.AddControlPointAlpha(0.2f, 0.024f);
-        tf.AddControlPointAlpha(0.28f, 0.03f);
-        tf.AddControlPointAlpha(0.4f, 0.546f);
-        tf.AddControlPointAlpha(0.547f, 0.5266f);
-
-        tf.GenerateTexture();
         Texture2D tfTexture = tf.GetTexture();
         volObj.transferFunction = tf;
 

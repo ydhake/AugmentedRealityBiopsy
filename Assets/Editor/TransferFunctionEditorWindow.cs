@@ -26,8 +26,8 @@ public class TransferFunctionEditorWindow : EditorWindow
 
     private void OnEnable()
     {
-        tfGUIMat = Resources.Load<Material>("TransferFunctionGUIMat");
-        tfPaletteGUIMat = Resources.Load<Material>("TransferFunctionPaletteGUIMat");
+        tfGUIMat = Program.instance.transferFunctionManager.guiMaterial;
+        tfPaletteGUIMat = Program.instance.transferFunctionManager.paletteMaterial;
     }
 
     private void OnGUI()

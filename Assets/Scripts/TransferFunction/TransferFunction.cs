@@ -11,16 +11,10 @@ public class TransferFunction
     public Texture2D histogramTexture = null;
 
     public  Texture2D texture = null;
-    Color[] tfCols;
+    public Color[] tfCols;
 
     private const int TEXTURE_WIDTH = 512;
     private const int TEXTURE_HEIGHT = 2;
-
-    public TransferFunction()
-    {
-        texture = new Texture2D(TEXTURE_WIDTH, TEXTURE_HEIGHT, TextureFormat.RGBAFloat, false);
-        tfCols = new Color[TEXTURE_WIDTH * TEXTURE_HEIGHT];
-    }
 
     public void AddControlPointColor(float dataValue, Color color)
     {
