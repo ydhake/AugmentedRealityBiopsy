@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using System;
 
+[Serializable]
 public class TransferFunction
 {
     public List<TFColourControlPoint> colourControlPoints = new List<TFColourControlPoint>();
@@ -8,7 +10,7 @@ public class TransferFunction
 
     public Texture2D histogramTexture = null;
 
-    private Texture2D texture = null;
+    public  Texture2D texture = null;
     Color[] tfCols;
 
     private const int TEXTURE_WIDTH = 512;
