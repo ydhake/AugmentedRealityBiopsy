@@ -8,7 +8,9 @@ public class Program : MonoBehaviour
     public ImportManager importManager;
     public BiopsyManager biopsyManager;
     public TransferFunctionManager transferFunctionManager;
-    public VolumeRenderedObject volumeRenderedObject;
+
+    public VolumeRenderedObject volumeRenderedObjectComplete;
+    public VolumeRenderedObject volumeRenderedObjectTumor;
 
     public void Awake()
     {
