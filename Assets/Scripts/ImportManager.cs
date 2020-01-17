@@ -152,9 +152,9 @@ public class ImportManager : MonoBehaviour
         TransferFunction tf = new TransferFunction();
         Program.instance.transferFunctionManager.transferFunction = tf;
         
-        tf.AddControlPoint(new TFColourControlPoint(0.0f, new Color(0.11f, 0.14f, 0.13f, 1.0f)));
-        tf.AddControlPoint(new TFColourControlPoint(0.2415f, new Color(0.469f, 0.354f, 0.223f, 1.0f)));
-        tf.AddControlPoint(new TFColourControlPoint(0.3253f, new Color(1.0f, 1.0f, 1.0f, 1.0f)));
+        tf.AddControlPointColor(0.0f, new Color(0.11f, 0.14f, 0.13f, 1.0f));
+        tf.AddControlPointColor(0.2415f, new Color(0.469f, 0.354f, 0.223f, 1.0f));
+        tf.AddControlPointColor(0.3253f, new Color(1.0f, 1.0f, 1.0f, 1.0f));
 
         tf.AddControlPointAlpha(0.0f, 0.0f);
         tf.AddControlPointAlpha(0.1787f, 0.0f);

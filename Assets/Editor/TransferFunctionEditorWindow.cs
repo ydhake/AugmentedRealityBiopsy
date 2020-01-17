@@ -55,7 +55,7 @@ public class TransferFunctionEditorWindow : EditorWindow
         // Colour control points
         for (int iCol = 0; iCol < tf.colourControlPoints.Count; iCol++)
         {
-            TFColourControlPoint colPoint = tf.colourControlPoints[iCol];
+            ControlPointColor colPoint = tf.colourControlPoints[iCol];
             Rect ctrlBox = new Rect(bgRect.x + bgRect.width * colPoint.dataValue, bgRect.y + bgRect.height + 20, 10, 20);
             GUI.color = Color.red;
             GUI.skin.box.fontSize = 8;
@@ -107,13 +107,13 @@ public class TransferFunctionEditorWindow : EditorWindow
                         Mathf.Clamp(1.0f - (Event.current.mousePosition.y - bgRect.y) / bgRect.height, 0.0f, 1.0f)
                     ));
             else
-                tf.colourControlPoints.Add(new TFColourControlPoint(Mathf.Clamp((Event.current.mousePosition.x - bgRect.x) / bgRect.width, 0.0f, 1.0f), Random.ColorHSV()));
+                tf.colourControlPoints.Add(tf.CreateControlPointColor(Mathf.Clamp((Event.current.mousePosition.x - bgRect.x) / bgRect.width, 0.0f, 1.0f), Random.ColorHSV()));
             selectedColPointIndex = -1;
         }
 
         if(selectedColPointIndex != -1)
         {
-            TFColourControlPoint colPoint = tf.colourControlPoints[selectedColPointIndex];
+            ControlPointColor colPoint = tf.colourControlPoints[selectedColPointIndex];
             colPoint.colourValue = EditorGUI.ColorField(new Rect(bgRect.x, bgRect.y + bgRect.height + 50, 100.0f, 40.0f), colPoint.colourValue);
             tf.colourControlPoints[selectedColPointIndex] = colPoint;
         }
