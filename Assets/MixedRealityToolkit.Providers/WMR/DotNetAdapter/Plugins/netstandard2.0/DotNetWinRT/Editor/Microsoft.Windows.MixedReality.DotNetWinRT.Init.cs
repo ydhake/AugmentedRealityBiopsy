@@ -1,11 +1,14 @@
 using System;
 using System.IO;
 using System.Runtime.InteropServices;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 using UnityEngine;
 
 namespace Microsoft.Windows.MixedReality.DotNetWinRT
 {
+    #if UNITY_EDITOR
     [InitializeOnLoad]
     internal class Init : MonoBehaviour
     {
@@ -56,4 +59,6 @@ namespace Microsoft.Windows.MixedReality.DotNetWinRT
             Debug.Log(string.Format("Added DLL directory {0} to the user search path.", dllDirectory));
         }
     }
+
+    #endif
 }
