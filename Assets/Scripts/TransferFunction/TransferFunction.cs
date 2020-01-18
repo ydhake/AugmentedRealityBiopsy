@@ -85,30 +85,30 @@ public class TransferFunction
         int iCurrColour = 0;
         int iCurrAlpha = 0;
 
-        // for(int iX = 0; iX < TEXTURE_WIDTH; iX++)
-        // {
-        //     float t = iX / (float)(TEXTURE_WIDTH - 1);
-        //     while (iCurrColour < numColours - 2 && cols[iCurrColour + 1].dataValue < t)
-        //         iCurrColour++;
-        //     while (iCurrAlpha < numAlphas - 2 && alphas[iCurrAlpha + 1].dataValue < t)
-        //         iCurrAlpha++;
+        for(int iX = 0; iX < TEXTURE_WIDTH; iX++)
+        {
+            float t = iX / (float)(TEXTURE_WIDTH - 1);
+            while (iCurrColour < numColours - 2 && cols[iCurrColour + 1].dataValue < t)
+                iCurrColour++;
+            while (iCurrAlpha < numAlphas - 2 && alphas[iCurrAlpha + 1].dataValue < t)
+                iCurrAlpha++;
 
-        //     ControlPointColor leftCol = cols[iCurrColour];
-        //     ControlPointColor rightCol = cols[iCurrColour + 1];
-        //     ControlPointAlpha leftAlpha = alphas[iCurrAlpha];
-        //     ControlPointAlpha rightAlpha = alphas[iCurrAlpha + 1];
+            ControlPointColor leftCol = cols[iCurrColour];
+            ControlPointColor rightCol = cols[iCurrColour + 1];
+            ControlPointAlpha leftAlpha = alphas[iCurrAlpha];
+            ControlPointAlpha rightAlpha = alphas[iCurrAlpha + 1];
 
-        //     float tCol = (Mathf.Clamp(t, leftCol.dataValue, rightCol.dataValue) - leftCol.dataValue) / (rightCol.dataValue - leftCol.dataValue);
-        //     float tAlpha = (Mathf.Clamp(t, leftAlpha.dataValue, rightAlpha.dataValue) - leftAlpha.dataValue) / (rightAlpha.dataValue - leftAlpha.dataValue);
+            float tCol = (Mathf.Clamp(t, leftCol.dataValue, rightCol.dataValue) - leftCol.dataValue) / (rightCol.dataValue - leftCol.dataValue);
+            float tAlpha = (Mathf.Clamp(t, leftAlpha.dataValue, rightAlpha.dataValue) - leftAlpha.dataValue) / (rightAlpha.dataValue - leftAlpha.dataValue);
 
-        //     Color pixCol = rightCol.colourValue * tCol + leftCol.colourValue * (1.0f - tCol);
-        //     pixCol.a = rightAlpha.alphaValue * tAlpha + leftAlpha.alphaValue * (1.0f - tAlpha);
+            Color pixCol = rightCol.colourValue * tCol + leftCol.colourValue * (1.0f - tCol);
+            pixCol.a = rightAlpha.alphaValue * tAlpha + leftAlpha.alphaValue * (1.0f - tAlpha);
 
-        //     for (int iY = 0; iY < TEXTURE_HEIGHT; iY++)
-        //     {
-        //         tfCols[iX + iY * TEXTURE_WIDTH] = pixCol;
-        //     }
-        // }
+            for (int iY = 0; iY < TEXTURE_HEIGHT; iY++)
+            {
+                tfCols[iX + iY * TEXTURE_WIDTH] = pixCol;
+            }
+        }
 
         texture.wrapMode = TextureWrapMode.Clamp;
         texture.SetPixels(tfCols);

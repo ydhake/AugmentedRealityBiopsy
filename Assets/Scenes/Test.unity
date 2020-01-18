@@ -824,24 +824,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dimX: 512
   dimY: 512
-  dimZ: 121
+  dimZ: 71
   contentFormat: 2
-  filePathComplete: DataFiles/brain_nose.raw
-  filePathTumor: DataFiles/tumor_label.raw
+  filePath: DataFiles/brain_mri.raw
   skipBytes: 6
   volumeObjectPrefab: {fileID: 1758459268553486, guid: 06d1ae9362ecddb44844bf342a6fc7f3,
     type: 3}
-  tumorPrefab: {fileID: 1758459268553486, guid: 26a67eb0a4674b24dae5e0dd6d9066af,
-    type: 3}
-  datasetComplete:
-    data: 
-    texture: {fileID: 0}
-    minDataValue: 0
-    maxDataValue: 0
-    dimX: 0
-    dimY: 0
-    dimZ: 0
-  datasetTumor:
+  dataset:
     data: 
     texture: {fileID: 0}
     minDataValue: 0
@@ -1104,26 +1093,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea8cfdefa578c354a817d9931fc398cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  transferFunctionVolumeObject:
+  transferFunction:
     colourControlPoints: []
     alphaControlPoints: []
     histogramTexture: {fileID: 0}
     texture: {fileID: 0}
     tfCols: []
-  transferFunctionTumor:
-    colourControlPoints: []
-    alphaControlPoints: []
-    histogramTexture: {fileID: 0}
-    texture: {fileID: 0}
-    tfCols: []
-  histogramMaterialVolumeObject: {fileID: 2100000, guid: 5c679c40287c6be4ea9d399b2550dc24,
-    type: 2}
-  histogramMaterialTumor: {fileID: 2100000, guid: f7ceddc45b1b9f247bbcf300534790b8,
-    type: 2}
-  colorBarMaterialVolumeObject: {fileID: 2100000, guid: ff490732e49820c42b1fb485f6a0717c,
-    type: 2}
-  colorBarMaterialTumor: {fileID: 2100000, guid: 2b26108b5e40d1a47a61c7adaece77e8,
-    type: 2}
+  histogramMaterial: {fileID: 2100000, guid: 5c679c40287c6be4ea9d399b2550dc24, type: 2}
+  colorBarMaterial: {fileID: 2100000, guid: ff490732e49820c42b1fb485f6a0717c, type: 2}
 --- !u!4 &1444691770
 Transform:
   m_ObjectHideFlags: 0
@@ -1276,8 +1253,7 @@ MonoBehaviour:
   importManager: {fileID: 552285240}
   biopsyManager: {fileID: 59659373}
   transferFunctionManager: {fileID: 1444691769}
-  volumeRenderedObjectComplete: {fileID: 0}
-  volumeRenderedObjectTumor: {fileID: 0}
+  volumeRenderedObject: {fileID: 0}
 --- !u!4 &1488107071
 Transform:
   m_ObjectHideFlags: 0
