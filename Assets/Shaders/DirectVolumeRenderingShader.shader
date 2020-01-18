@@ -85,7 +85,7 @@
             // Direct Volume Rendering
 			fixed4 frag_dvr (v2f i)
 			{
-#define NUM_STEPS 1024
+#define NUM_STEPS 512
 
                 const float stepSize = 1.732f/*greatest distance in box*/ / NUM_STEPS;
 
@@ -133,7 +133,7 @@
             // Maximum Intensity Projection mode
             fixed4 frag_mip(v2f i)
             {
-                #define NUM_STEPS 1024
+                #define NUM_STEPS 512
                 const float stepSize = 1.732f/*greatest distance in box*/ / NUM_STEPS;
 
                 float3 rayStartPos = i.vertexLocal + float3(0.5f, 0.5f, 0.5f);
@@ -164,7 +164,7 @@
             // Draws the first point (closest to camera) with a density within the user-defined thresholds.
             fixed4 frag_surf(v2f i)
             {
-#define NUM_STEPS 1024
+#define NUM_STEPS 512
                 const float stepSize = 1.732f/*greatest distance in box*/ / NUM_STEPS;
 
                 float3 rayStartPos = i.vertexLocal + float3(0.5f, 0.5f, 0.5f);
